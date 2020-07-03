@@ -6,7 +6,7 @@ $(document).ready(function() {
 		host: "DnaWebClient",
 		userAgent: "DnaWebClient",
 		method: 'get',
-		url: "https://dnatester-env.eba-kiffzd8h.us-east-1.elasticbeanstalk.com/api/v1/human",
+		url: "http://dnatester-env.eba-kiffzd8h.us-east-1.elasticbeanstalk.com/api/v1/human",
 		xhrFields: {
 		withCredentials: false
 		},
@@ -95,7 +95,7 @@ function analyzerHumans () {
 		host: "DnaWebClient",
 		userAgent: "DnaWebClient",
 		method: 'get',
-		url: "https://dnatester-env.eba-kiffzd8h.us-east-1.elasticbeanstalk.com/api/v1/stats",
+		url: "http://dnatester-env.eba-kiffzd8h.us-east-1.elasticbeanstalk.com/api/v1/stats",
 		xhrFields: {
 		withCredentials: false
 		},
@@ -156,7 +156,7 @@ function saveHuman(){
 		data: json,
 		contentType: 'application/json',
 		method: 'post',
-        url: "https://dnatester-env.eba-kiffzd8h.us-east-1.elasticbeanstalk.com/api/v1/human",
+        url: "http://dnatester-env.eba-kiffzd8h.us-east-1.elasticbeanstalk.com/api/v1/human",
 		xhrFields: {
 		withCredentials: false
 		},
