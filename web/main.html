@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel='stylesheet' id='compiled.css-css'  href='compiled-4.19.1.min.css' type='text/css' media='all'/>
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
+	<script src="dataController.js"></script>
+ 
+</head>
+
+<body class="fixed-sn mdb-skin-custom back" data-spy="scroll" data-target="#scrollspy"  >
+
+<main class="pt-4"  >
+    <div class="main-wrapper">
+        <div class="container-fluid ">
+            <div class="row">
+			  <div class="container">
+
+					<section id="buttons" class="text-center">
+
+					  <h3 id="txtDetector" class="h1 mb-4 pb-2 text-left font-weight-bold white-text">ADN detector</h3>
+						
+						<div class="row">
+							<div class="col-lg-3 col-md-4 mb-1">
+								<button class="btn btn-primary btn-rounded" data-toggle="modal" data-target="#newHuman">Nuevo Humano</button>						
+							</div> 
+							<div class="col-lg-3 col-md-4 mb-1">
+								<button class="btn btn-primary btn-rounded" onclick="analyzerHumans()">Analizar Humanos</button>
+							</div> 
+							<div class="col-lg-3 col-md-4 mb-1">
+							  <button class="btn btn-primary btn-rounded">Con Mutación</button>
+							</div>
+							<div class="col-lg-3 col-md-4 mb-1">
+							  <button class="btn btn-primary btn-rounded">Sin Mutación</button>  
+							</div>
+						</div>
+					</section>
+					
+				  <hr class="my-4">  
+				  
+				  <section id="cards" class="text-center">
+					    <div id="listContainer" class="row text-left"> 
+						  
+						  <div class="col-lg-4 col-md-6 mb-4"> 
+							  <div class="card"> 
+ 									<div class="card">
+									  <div class="card-body">
+										 <div class="row">
+											  <div class="col-3">	 
+											  </div>
+											  <div class="col-7">	
+													<h4 class="card-title"></h4>
+													<p class="card-text"></p>
+											  </div>
+										 </div> 
+										  <div class="col mt-3 text-center">	
+											<h5 class="card-title">Sin datos a mostrar</h4>
+										  </div>	
+									  </div> 
+									</div>
+							  </div> 
+						  </div> 
+						  
+						</div> 
+					  
+				  </section> 
+				  
+			  </div> 	  
+			</div> 
+		</div> 
+   	</div> 
+	
+	
+	 
+ 
+  <div class="modal fade" id="newHuman">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content"> 
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+			
+						<div  class="inline text-center">
+								  
+							<div class="btn-lg  btn-floating mdb-color blue"> </div>
+							
+							<div class="md-form">
+								  <input type="text" id="User" class="form-control">
+								  <label for="Form-email1">Nombre de humano</label>
+							</div> 
+							
+							<button type="button" onclick="saveHuman()" class="btn btn-warning black-text font-weight-bold" data-dismiss="modal">Crear Humano</button>	 
+						</div> 
+        </div>  
+      </div>
+    </div>
+  </div>
+  
+</main> 
+
+</body>
+
+</html>
