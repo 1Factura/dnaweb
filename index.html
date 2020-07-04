@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-	<link rel='stylesheet' id='compiled.css-css'  href='compiled-4.19.1.min.css' type='text/css' media='all'/>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel='stylesheet' id='compiled.css-css'  href='css/compiled-4.19.1.min.css' type='text/css' media='all'/>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
-	<script src="dataController.js"></script>
- 
+	<script src="scripts/dataController.js"></script>
+	
 </head>
 
 <body class="fixed-sn mdb-skin-custom backl" data-spy="scroll" data-target="#scrollspy"  >
@@ -24,12 +24,10 @@
 							  <div class="card">
 								  <div class="card-body mx-4">
 									  <div class="md-form">
-										  <input type="text" id="User" class="form-control">
-										  <label for="Form-email1">Usuario</label>
+										  <input type="text" id="User" class="form-control"  placeholder="Usuario"> 
 									  </div>
 									  <div class="md-form pb-3">
-										  <input type="password" id="Pass" class="form-control">
-										  <label for="Form-pass1">Contraseña</label> 
+										  <input type="password" id="Pass" class="form-control" placeholder="Contraseña"> 
 									  </div>
 									  <div class="text-center mb-3">
 										  <button type="button" class="btn btn-warning  btn-rounded black-text font-weight-bold" onclick="login()">Ingresar</button>

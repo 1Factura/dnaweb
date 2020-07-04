@@ -1,20 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-	<link rel='stylesheet' id='compiled.css-css'  href='compiled-4.19.1.min.css' type='text/css' media='all'/>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel='stylesheet' id='compiled.css-css'  href='css/compiled-4.19.1.min.css' type='text/css' media='all'/>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
-	<script src="dataController.js"></script>
- 
+    <script src="scripts/randexp.min.js"></script>
+	<script src="scripts/dataController.js"></script>
+
+	 
 </head>
 
-<body class="fixed-sn mdb-skin-custom back" data-spy="scroll" data-target="#scrollspy"  >
+<body class="fixed-sn mdb-skin-custom" data-spy="scroll" data-target="#scrollspy"  >
 
-<main class="pt-4"  >
-    <div class="main-wrapper">
+<main class="pt-4 back"  >
+    <div class="main-wrapper ">
         <div class="container-fluid ">
             <div class="row">
 			  <div class="container">
@@ -31,10 +33,10 @@
 								<button class="btn btn-primary btn-rounded" onclick="analyzerHumans()">Analizar Humanos</button>
 							</div> 
 							<div class="col-lg-3 col-md-4 mb-1">
-							  <button class="btn btn-primary btn-rounded">Con Mutación</button>
+							  <button class="btn btn-primary btn-rounded" onclick="hideHuman(false)">Con Mutación</button>
 							</div>
 							<div class="col-lg-3 col-md-4 mb-1">
-							  <button class="btn btn-primary btn-rounded">Sin Mutación</button>  
+							  <button class="btn btn-primary btn-rounded" onclick="hideHuman(true)">Sin Mutación</button>  
 							</div>
 						</div>
 					</section>
@@ -87,11 +89,10 @@
 							<div class="btn-lg  btn-floating mdb-color blue"> </div>
 							
 							<div class="md-form">
-								  <input type="text" id="User" class="form-control">
-								  <label for="Form-email1">Nombre de humano</label>
+								  <input type="text" id="User" class="form-control" placeholder="Nombre de humano"> 
 							</div> 
 							
-							<button type="button" onclick="saveHuman()" class="btn btn-warning black-text font-weight-bold" data-dismiss="modal">Crear Humano</button>	 
+							<button type="button" onclick="trySaveHuman()" class="btn btn-warning black-text font-weight-bold" data-dismiss="modal">Crear Humano</button>	 
 						</div> 
         </div>  
       </div>

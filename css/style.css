@@ -1,0 +1,8 @@
+.back {  
+  background: url(https://raw.githubusercontent.com/1Factura/dnaweb/master/web/back.svg) no-repeat top;
+  background-size: containt;
+}
+.backl {  
+  background: url(https://raw.githubusercontent.com/1Factura/dnaweb/master/web/backl.svg) no-repeat;
+  background-size: cover;
+}

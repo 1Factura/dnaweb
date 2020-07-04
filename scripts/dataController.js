@@ -1,12 +1,19 @@
-$(document).ready(function() {
-    $.ajax({
+var baseUrl = "https://dnatesterback.azurewebsites.net/api/v1/";
+
+$(document).ready(function() {  
+   loadHumans();
+}); 
+  
+  
+function loadHumans(){
+$.ajax({
 		dataType: 'json',
         contentType: 'application/json',
 		crossDomain: true,	
 		host: "DnaWebClient",
 		userAgent: "DnaWebClient",
 		method: 'get',
-		url: "http://dnatester-env.eba-kiffzd8h.us-east-1.elasticbeanstalk.com/api/v1/human",
+		url: baseUrl+"human",
 		xhrFields: {
 		withCredentials: false
 		},
@@ -29,13 +36,12 @@ $(document).ready(function() {
 		}) .fail(function() {
 		console.log( 'Error.' );
 		});
-}); 
-  
+}
 
 function createCard (data) { 
  
   var borderCard = document.createElement("div");  
-	  borderCard.setAttribute('class', 'col-lg-4 col-md-6 mb-4');
+	  borderCard.setAttribute('class', 'col-lg-4 col-md-6 mb-4 d-block');
 		  var extCard = document.createElement("div");  
 				extCard.setAttribute('class', 'card');
 				borderCard.appendChild(extCard);
@@ -87,7 +93,8 @@ function login () {
   window.location.pathname = window.location.pathname.replace('index','main');
 }
 
-function analyzerHumans () { 
+function analyzerHumans () {
+showHumans();	
  $.ajax({
 		dataType: 'json',
         contentType: 'application/json',
@@ -95,10 +102,8 @@ function analyzerHumans () {
 		host: "DnaWebClient",
 		userAgent: "DnaWebClient",
 		method: 'get',
-		url: "http://dnatester-env.eba-kiffzd8h.us-east-1.elasticbeanstalk.com/api/v1/stats",
-		xhrFields: {
-		withCredentials: false
-		},
+		url:baseUrl+"stats",
+		xhrFields: { withCredentials: false	},
 		headers: {
 		'Access-Control-Allow-Credentials' : true,
 		'Access-Control-Allow-Origin':'*',
@@ -123,40 +128,76 @@ function analyzerHumans () {
 		console.log( 'Error.' );
 		});
 }
- 
- 
-function saveHuman(){
+  
+function showHumans(){ 
+    var listContainer = document.getElementById("listContainer"); 
+    var children = listContainer.childNodes;
+	children.forEach(function(item){ 
+			item.classList.remove("d-none");
+			item.classList.add("d-block");
+	});
+}
+
+function hideHuman(from){ 
+    var listContainer = document.getElementById("listContainer"); 
+    var children = listContainer.childNodes;
+	children.forEach(function(item){ 
+		let child = item.querySelectorAll(from?'.red':'.green'); 
+		if(child.length>0){
+			item.classList.remove("d-block");
+			item.classList.add("d-none");
+		} else {
+			item.classList.remove("d-none");
+			item.classList.add("d-block");
+		}
+	});
+}
+
+function trySaveHuman(){
   
 	var _nombre = "";//Validar 50 lenght, letras, espacios, numeros y acentos.
 	_nombre = document.getElementById('User').value; 
 
-		if(!_nombre || 0 === _nombre.length){
-				alert("Debe ingresar nombre.");
-			return;
-	    }
-		if(!_nombre.match("^[a-zA-Z0-9 ñÀ-ú]*$")){
-			alert("Solo se permite texto alfanumerico y espacios.");
-			return;
-		}
-		
-		if(_nombre.lenght > 50){
-			 alert("Excedío el numero de caracteres permitido para nombre.");
-			 return;
-		}
+	if(!_nombre || 0 === _nombre.length){
+		alert("Debe ingresar nombre.");
+		return;
+	}
+	if(!_nombre.match("^[a-zA-Z0-9 ñÀ-ú]*$")){
+		alert("Solo se permite texto alfanumerico y espacios.");
+		return;
+	}
+	if(_nombre.lenght > 50){
+		alert("Excedío el numero de caracteres permitido para nombre.");
+		return;
+	}			
+	var dna = createRandomDna();
+	var json = { "dna":dna.split(',')};
+	var jsonStr = JSON.stringify(json);
+	console.log(jsonStr);  
+	    
+	$.when(
+		isMutant(jsonStr)		
+	).then(function(data,xhr) {
+				var json = JSON.stringify(data);
+				console.log(json+xhr); 
+			mutant(dna,_nombre);
+	}).fail(function(data, textStatus, xhr) {
+			if(data.status == 403) { human(dna,_nombre)};
+	})
 	
-	var user = { id:0,dna:"tgtg,cgsc,gscg,gtgt",hasMutation:false,createdAt:new Date().toISOString(),name:_nombre};
-	var json = JSON.stringify(user);
-	console.log(json);
+	
+}
 
-	$.ajax({
+function isMutant(jsonStr) {
+	return	$.ajax({
 		dataType: 'json',
 		crossDomain: true,	
 		host: "DnaWebClient",
 		userAgent: "DnaWebClient",
-		data: json,
+		data: jsonStr,
 		contentType: 'application/json',
 		method: 'post',
-        url: "http://dnatester-env.eba-kiffzd8h.us-east-1.elasticbeanstalk.com/api/v1/human",
+        url:baseUrl+"mutation",
 		xhrFields: {
 		withCredentials: false
 		},
@@ -165,8 +206,80 @@ function saveHuman(){
 		'Access-Control-Allow-Origin':'*',
 		'Access-Control-Allow-Methods':'GET',
 		'Access-Control-Allow-Headers':'application/json'}
-		 }).then(function(data) {
-		var json = JSON.stringify(data);
-		console.log(json); 
-		});//Función para guardar el usuario.
+		 })
+}
+
+function mutant(dna,_nombre) {
+	
+		console.log("Mutant"); 
+
+			var user = { id:0,dna:dna,hasMutation:true,createdAt:new Date().toISOString(),name:_nombre};
+			var json = JSON.stringify(user);
+			console.log(json);
+
+			$.ajax({
+				dataType: 'json',
+				crossDomain: true,	
+				host: "DnaWebClient",
+				userAgent: "DnaWebClient",
+				data: json,
+				contentType: 'application/json',
+				method: 'post',
+				url:baseUrl+"human",
+				xhrFields: {
+				withCredentials: false
+				},
+				headers: {
+				'Access-Control-Allow-Credentials' : true,
+				'Access-Control-Allow-Origin':'*',
+				'Access-Control-Allow-Methods':'GET',
+				'Access-Control-Allow-Headers':'application/json'}
+				 }).then(function(data) {
+				var json = JSON.stringify(data);
+				console.log(json); 
+				loadHumans();
+				}); 
+}
+ 
+function human(dna,_nombre) {
+	
+		console.log("Human"); 
+
+			var user = { id:0,dna:dna,hasMutation:false,createdAt:new Date().toISOString(),name:_nombre};
+			var json = JSON.stringify(user);
+			console.log(json);
+
+			$.ajax({
+				dataType: 'json',
+				crossDomain: true,	
+				host: "DnaWebClient",
+				userAgent: "DnaWebClient",
+				data: json,
+				contentType: 'application/json',
+				method: 'post',
+				url: baseUrl+"human",
+				xhrFields: {
+				withCredentials: false
+				},
+				headers: {
+				'Access-Control-Allow-Credentials' : true,
+				'Access-Control-Allow-Origin':'*',
+				'Access-Control-Allow-Methods':'GET',
+				'Access-Control-Allow-Headers':'application/json'}
+				 }).then(function(data) {
+				var json = JSON.stringify(data);
+				console.log(json); 
+				loadHumans();
+				}); 
+}
+
+function createRandomDna () {    
+  var dna = "";
+  
+  for (var i = 0; i < 6; i++) {
+	var base = new RandExp(/[ATCG]{6}/).gen();
+	var separator = i<5?",":"";
+	dna=dna+base+separator;
+  }
+  return dna;
 }
