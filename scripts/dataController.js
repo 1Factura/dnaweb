@@ -90,7 +90,8 @@ function deleteList () {
 }
 
 function login () {   
-  window.location.pathname = window.location.pathname.replace('index','main');
+  window.location.pathname = window.location.pathname.remove('index.html');
+  window.location.pathname = window.location.pathname.add('main.html');
 }
 
 function analyzerHumans () {
